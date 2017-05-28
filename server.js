@@ -5,6 +5,8 @@ app.use( require('body-parser').json() );
 const users = require('./lib/users')
 users.init();
 
+app.use(express.static('public'));
+
 app.get('/', function (req, res) {
 	res.send('This is WebTale')
 })
@@ -21,6 +23,7 @@ app.post('/register', (req, res) => {
 				if(err){
 					res.send(err.message);
 				}else{
+
 					res.status(201).send(user);
 				}
 
