@@ -14,7 +14,8 @@ RegisterPlugin.prototype.onSubmit = function(e) {
 		url: 'https://webtale.herokuapp.com/register',
 		method: 'POST',
 		data: JSON.stringify({email: email}),
-		dataType: 'json'
+		dataType: 'json',
+		contentType: 'application/json'
 	}).then(function(){
 		$el.html('Success');
 	}).fail(function(){
