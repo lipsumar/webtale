@@ -11,7 +11,11 @@ app.get('/', function (req, res) {
 
 app.post('/register', (req, res) => {
 	users.findByEmail(req.body.email, (err, user) => {
-		if(err) return res.status(500).send(err)
+		if(err) {
+			res.status(500).send(err)
+			return
+		}
+
 		if(user){
 			res.send(user)
 		}else{
