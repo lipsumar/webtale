@@ -11,11 +11,19 @@ app.get('/', function (req, res) {
 
 app.post('/register', (req, res) => {
 	users.findByEmail(req.body.email, (err, user) => {
-		if(err) return res.send(err)
+		if(err) return res.status(500).send(err)
 		if(user){
 			res.send(user)
 		}else{
-			res.send('we don’t have that')
+			users.add(req.body.email, (err, user) => {
+				if(err){
+					res.status(500).send(err);
+				}else{
+					res.status(201).send(user);
+				}
+
+			})
+
 		}
 	})
 })
