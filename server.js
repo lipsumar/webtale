@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 app.use( require('body-parser').json() );
 
+const users = require('./lib/users')
+users.init();
+
 app.get('/', function (req, res) {
 	res.send('This is WebTale')
 })
