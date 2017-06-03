@@ -23,6 +23,7 @@
     "command-line-usage": "^4.0.0",
     "commander": "^2.9.0",
     "express": "^4.15.3",
+    "front-matter": "^2.1.2",
     "handlebars": "^4.0.10",
     "handlebars-layouts": "^3.1.4",
     "jquery": "^2.2.4",
