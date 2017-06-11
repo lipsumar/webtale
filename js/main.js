@@ -1,4 +1,6 @@
-var $ = require('jquery')
+var $ = require('jquery');
+window.$ = $;
+window.jQuery = $;
 
 var plugins = {
 	register: require('./plugin/register')

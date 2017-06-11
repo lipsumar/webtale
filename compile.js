@@ -4,7 +4,9 @@ var commandLineArgs = require('command-line-args'),
     fs = require('fs'),
     mkdirp = require('mkdirp'),
     pageBuilder = require('./lib/page-builder'),
-    chalk = require('chalk');
+    chalk = require('chalk'),
+    ncp = require('ncp').ncp,
+    browserify = require('browserify');
 
 var options = commandLineArgs([
     { name: 'help', alias: 'h', type: Boolean },
@@ -50,13 +52,14 @@ pageBuilder.init(options, err => {
         var relativePath = path.relative(options.from, filename),
             absolutePath = path.relative('/', filename),
             extension = path.extname(relativePath)
-        console.log(relativePath);
+
         pageGraph.currentPage = relativePath;
 
         if(relativePath.substr(0, 1) === '_'){
             return cb();
         }
 
+        console.log(relativePath);
 
         if(extension === '.html'){
             try{
@@ -78,16 +81,33 @@ pageBuilder.init(options, err => {
     }, function onDone() {
         // completed iterating
 
-        var storyGraphHtml = fs.readFileSync(path.join(__dirname, 'templates/story-graph.html'))
-            .toString()
-            .replace(
-                'var links = []; // REPLACE_EDGES //',
-                'var links = ' + JSON.stringify(pageGraph.edges) + ';'
-            );
-        fs.writeFileSync(path.join(options.to, '_story-graph.html'), storyGraphHtml);
+        ncp(
+            path.join(options.from, '_assets'),
+            path.join(options.to, '_assets'),
+            function(err){
+                if(err) throw err;
 
-        console.log('✅  done');
-        console.log(pageGraph);
+
+                var b = browserify();
+                b.add('./js/main.js');
+                b.bundle().pipe(fs.createWriteStream(path.join(options.to, '_assets/bundle.js')));
+
+
+
+                var storyGraphHtml = fs.readFileSync(path.join(__dirname, 'templates/story-graph.html'))
+                    .toString()
+                    .replace(
+                        'var links = []; // REPLACE_EDGES //',
+                        'var links = ' + JSON.stringify(pageGraph.edges) + ';'
+                    );
+                fs.writeFileSync(path.join(options.to, '_story-graph.html'), storyGraphHtml);
+
+                console.log('✅  done');
+                //console.log(pageGraph);
+            }
+        )
+
+
 
 
 

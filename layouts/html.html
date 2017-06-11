@@ -10,6 +10,8 @@
 <body class="{{bodyClass}}">
 	{{#block "body"}}
 	{{/block}}
-	<script src="/bundle.js"></script>
+	<script src="{{base_url}}_assets/bundle.js"></script>
+	{{#block "script"}}
+	{{/block}}
 </body>
 </html>
