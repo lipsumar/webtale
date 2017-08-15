@@ -58,6 +58,9 @@ pageBuilder.init(options, err => {
         if(relativePath.substr(0, 1) === '_'){
             return cb();
         }
+	    if(relativePath.substr(0,1)==='.'){
+            return cb();
+        }
 
         console.log(relativePath);
 
