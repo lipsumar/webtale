@@ -5,6 +5,22 @@
 	<title>{{title}}</title>
     <meta content="width=device-width,initial-scale=1" name="viewport">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style>
+		#wt-mobile{
+			display:none;
+			position: absolute;
+			top:0;
+			left:0;
+			bottom:0;
+			right:0;
+			background-color: white;
+		}
+		@media(max-width:1023px){
+			#wt-mobile{
+				display:block;
+			}
+		}
+	</style>
 	{{#block "style"}}
 	{{/block}}
 </head>
@@ -14,5 +30,9 @@
 	<script src="{{base_url}}_assets/bundle.js"></script>
 	{{#block "script"}}
 	{{/block}}
+
+	<div id="wt-mobile">
+		{{mobile_content}}
+	</div>
 </body>
 </html>
