@@ -5,6 +5,7 @@
 	<title>{{title}}</title>
     <meta content="width=device-width,initial-scale=1" name="viewport">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	{{#if mobile_content}}
 	<style>
 		#wt-mobile{
 			display:none;
@@ -21,6 +22,7 @@
 			}
 		}
 	</style>
+	{{/if}}
 	{{#block "style"}}
 	{{/block}}
 </head>
@@ -31,8 +33,10 @@
 	{{#block "script"}}
 	{{/block}}
 
+	{{#if mobile_content}}
 	<div id="wt-mobile">
-		{{mobile_content}}
+		{{{mobile_content}}}
 	</div>
+	{{/if}}
 </body>
 </html>
